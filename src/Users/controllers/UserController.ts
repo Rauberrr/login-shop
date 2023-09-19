@@ -1,10 +1,10 @@
 import { Request, Response } from 'express'
-import User from '../schemas/User'
+import User from '../schemas/User' 
 
 class UserController {
     public async list (req: Request, res: Response): Promise<Response> {
         const users = await User.find()
-
+        console.log(users)
         return res.status(200).json(users)
     } 
 
@@ -33,6 +33,8 @@ class UserController {
             throw new Error('Error when delete the user')
         }
     }
+
+    
 }
 
 export default new UserController()

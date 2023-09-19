@@ -1,8 +1,8 @@
 import { model, Schema } from 'mongoose'
 
 interface UserInterface extends Document {
-    email?: string
-    password?: string
+    email: string
+    password: string
 }
 
 const UserSchema = new Schema({
