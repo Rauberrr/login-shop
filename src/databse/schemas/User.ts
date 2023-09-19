@@ -1,13 +1,11 @@
 import { model, Schema } from 'mongoose'
 
 interface UserInterface extends Document {
-    id: number
     email?: string
     password?: string
 }
 
 const UserSchema = new Schema({
-    id: Number,
     email: String,
     password: String
 },

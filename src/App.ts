@@ -1,6 +1,8 @@
 import e, { Application } from 'express'
 import cors from 'cors'
-import routesApp from './routes'
+import routes from './routes'
+import mongoose from 'mongoose'
+import config from './config'
 
 export default class App {
     public app: Application
@@ -9,8 +11,8 @@ export default class App {
         this.app = e()
 
         this.middlewares()
-        this.routes()
-        this.db()
+        this.router()
+        this.mongodb()
     }
 
     public listen(port): void {
@@ -25,12 +27,17 @@ export default class App {
         this.app.use(cors())
     }
 
-    private routes(): void {
-        this.app.use(routesApp)
+    private router(): void {
+        this.app.use(routes)
     }
 
-    private db() {
-
+    private mongodb() {
+        try{
+            mongoose.connect('mongodb+srv://'+ config.mongodb.user +':'+ config.mongodb.pass +'@cluster0.y8fhlmc.mongodb.net/?retryWrites=true&w=majority')
+            console.log('connect sucessfully')
+        } catch (erro) {
+            console.log('fail connect to database' + erro)
+        }
     }
 }
 
