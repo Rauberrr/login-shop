@@ -1,22 +1,34 @@
 import { Request, Response } from 'express'
+import AuthService from '../services/AuthUser'
 import User from '../schemas/User' 
 
 class UserController {
     public async list (req: Request, res: Response): Promise<Response> {
         const users = await User.find()
-        console.log(users)
+        // console.log(users)
         return res.status(200).json(users)
     } 
 
     public async create (req: Request, res: Response): Promise<Response> {
-        try{
+        const { email2, password2 } = req.body
+        // console.log(email, password)
+        try {
+            const authService = new AuthService()
+            const { user, token } = await authService.signIn(email2, password2)
 
-            const user = await User.create(req.body)
-            
-            return res.status(200).json(user)
-        } catch (erro) {
-            throw new Error('error to create new user')
+            res.status(200).json({ user, token })
+        } catch (error) {
+            res.status(401).json({ erro: 'Credenciais Invalidas' })
         }
+
+        // try{
+
+        //     const user = await User.create(req.body)
+            
+        //     return res.status(200).json(user)
+        // } catch (erro) {
+        //     throw new Error('error to create new user')
+        // }
     }
 
     public async delete (req: Request, res: Response): Promise<Response> {

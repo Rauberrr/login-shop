@@ -2,32 +2,31 @@ import jwt from 'jsonwebtoken'
 import config from '../../config'
 import User from '../schemas/User'
 
-
 export default class AuthService {
-    public async signIn (email: string, password: string): Promise<{ user, token }> {
-        const users = await User.find({email: email})
-
+    public async signIn (email2: string, password2: string): Promise<{ user, token }> {
+        const UserValidade = await User.findOne({ email: email2, password: password2 })
         
-
-        if (email !== users.email || senha !== users.password) {
+        if (!UserValidade) {
             throw new Error('Credenciais Invalidas')
         }
-
+        
         try {
-            const { id } = users.id
+            console.log('usuario validado '+ UserValidade)
+            
 
-            const token = jwt.sign({ id }, config.auth.secret, {
+            const token = jwt.sign({ id: UserValidade._id }, config.auth.secret, {
                 expiresIn: config.auth.ExpiresIn
             })
 
             return {
                 user: {
-                    email,
-                    password
+                    id: UserValidade._id,
+                    email2: UserValidade.email
                 },
                 token
             }
         } catch (error) {
+            console.log('erro ao gerar o token')
             throw new Error('Erro ao gerar o token')
         }
     }
