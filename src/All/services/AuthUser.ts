@@ -11,20 +11,19 @@ export default class AuthService {
         }
         
         try {
-            console.log('usuario validado '+ UserValidade)
             
-
-            const token = jwt.sign({ id: UserValidade._id }, config.auth.secret, {
+            const token = jwt.sign({ id: UserValidade._id, isAdmin: UserValidade.isAdmin}, config.auth.secret, {
                 expiresIn: config.auth.ExpiresIn
             })
 
             return {
                 user: {
                     id: UserValidade._id,
-                    email2: UserValidade.email
+                    isAdmin: UserValidade.isAdmin
                 },
                 token
             }
+
         } catch (error) {
             console.log('erro ao gerar o token')
             throw new Error('Erro ao gerar o token')
@@ -33,9 +32,11 @@ export default class AuthService {
 
     public async tokenValidate (token: string): Promise<void> {
         try {
-            const equals = jwt.verify(token, config.auth.secret)
-
-            return equals
+            const decodedToken = jwt.verify(token, config.auth.secret)
+            // const userId = decodedToken.id
+            // const isAdmin = decodedToken.isAdmin
+            // console.log(isAdmin, userId)
+            return decodedToken
         } catch (erro) {
             throw new Error('Token Invalido')
         }

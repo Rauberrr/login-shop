@@ -1,5 +1,5 @@
 import { type NextFunction, type Request, type Response } from 'express'
-import AuthService from '../Users/services/AuthUser'
+import AuthService from '../All/services/AuthUser'
 
 export default async (req: Request, res: Response, next: NextFunction) => {
     const auth = req.headers.authorization
@@ -12,6 +12,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
         const validate = await authService.tokenValidate(token)
 
         req.user = { validate, token }
+
     } catch (error) {
         return res.status(401).json({ msg: 'o token nao é válido' })
     }
