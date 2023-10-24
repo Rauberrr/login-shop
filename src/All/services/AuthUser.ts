@@ -4,7 +4,7 @@ import User from '../schemas/User'
 
 export default class AuthService {
     public async signIn (email2: string, password2: string): Promise<{ user, token }> {
-        const UserValidade = await User.findOne({ email: email2, password: password2 })
+        const UserValidade = await User.findOne({ email2: email2, password2: password2 })
         
         if (!UserValidade) {
             throw new Error('Credenciais Invalidas')
@@ -12,13 +12,14 @@ export default class AuthService {
         
         try {
             
-            const token = jwt.sign({ id: UserValidade._id, isAdmin: UserValidade.isAdmin}, config.auth.secret, {
+            const token = jwt.sign({ email2: UserValidade.email2, id: UserValidade._id, isAdmin: UserValidade.isAdmin}, config.auth.secret, {
                 expiresIn: config.auth.ExpiresIn
             })
 
             return {
                 user: {
                     id: UserValidade._id,
+                    email2,
                     isAdmin: UserValidade.isAdmin
                 },
                 token

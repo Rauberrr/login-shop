@@ -3,6 +3,7 @@ import AuthService from '../All/services/AuthUser'
 
 export default async (req: Request, res: Response, next: NextFunction) => {
     const auth = req.headers.authorization
+    console.log('auth: '+auth)
     if (!auth) return res.status(401).json({ msg: 'voce nao esta logado' })
 
     const [, token] = auth.split(' ')
