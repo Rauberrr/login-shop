@@ -11,7 +11,7 @@ routes.get('/', (req, res) => res.json({msg: 'page initial'}))
 routes.post('/sign-in', UserController.login)
 routes.get('/list-users', AuthMiddleware, UserController.list)
 routes.post('/create-user', UserController.create)
-routes.put('/update-user/:id', AuthMiddleware, UserController.update)
+routes.put('/update-user/:id', UserController.update)
 routes.delete('/delete-user/:id', AuthMiddleware, UserController.delete)
 
 //product routes

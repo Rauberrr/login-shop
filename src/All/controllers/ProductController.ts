@@ -18,6 +18,7 @@ class ProductController {
             }
             
             const quantity = req.body.quantity
+            console.log('quantity: '+quantity)
             product.quantity -= quantity;
 
             await product.save();
@@ -39,8 +40,8 @@ class ProductController {
 
     public async create (req: Request, res: Response): Promise<Response> {
         if(req.user.validate.isAdmin) {
-            try{
 
+            try{
                 const product = await Product.create(req.body)
             
                 return res.status(200).json({msg: 'product create sucessfully' , product})
