@@ -1,0 +1,39 @@
+.center-text {
+    text-align: center;
+}
+
+.products {
+    width: 90%;
+    margin: auto;
+}
+
+.products div {
+    background-color: grey;
+    margin: 20px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.green {
+    color: green;
+}
+
+.pink {
+    color: rgb(247, 53, 85);
+}
+
+
+@media screen and (max-width: 1350px) {
+    .grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}
