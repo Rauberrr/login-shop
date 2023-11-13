@@ -1,0 +1,20 @@
+* {
+  font-family: 'Baloo';
+  text-decoration: none;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg-black: #111111;
+  --bg-grey: #414041;
+  --bg-purple: #613BF5;
+
+  --blue: #006FFF;
+  --blue-dark: #00439A;
+
+  --green: #49E015;
+  --black: #181818;
+  --white: #F4ECEC;
+}
+
