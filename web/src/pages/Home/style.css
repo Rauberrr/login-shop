@@ -1,6 +1,18 @@
 .center-text {
     text-align: center;
 }
+.title {
+    margin: 30px;
+}
+
+.content {
+    padding: 0px 10px;
+}
+
+.content div{
+    padding: 5px 0px;
+}
+
 
 .products {
     width: 90%;
@@ -8,23 +20,29 @@
     color: #F4ECEC;
 }
 
-.products h1 {
-    margin-left: 20px;
-}
-
-.products div {
+.products .product {
+    min-width: 100px;
+    word-wrap: break-word;
     background: #414041;
     margin: 20px;
+    padding: 10px;
+    min-height: 420px;
 }
 
+
 .product-button button {
+    cursor: pointer;
     border: 0;
     background: #006FFF;
     padding: 10px;
     color: #F4ECEC;
 }
 
-.product-img img {
+.space {
+    justify-content: space-between;
+}
+
+.img img{
     width: 100%;
 }
 
@@ -43,6 +61,8 @@
 }
 
 .green {
+    font-size: 15px;
+    margin-left: 5px;
     color: green;
 }
 
@@ -56,5 +76,9 @@
 @media screen and (max-width: 768px) {
     .grid {
         grid-template-columns: 1fr;
+    }
+
+    .content div{
+        padding: 5px 0px;
     }
 }
