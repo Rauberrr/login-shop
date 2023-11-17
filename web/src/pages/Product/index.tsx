@@ -1,6 +1,5 @@
 import './style.css'
 import Header from '../../components/Header'
-import product1 from '../../assets/imgs/produto1.png'
 import cart from '../../assets/imgs/cart.svg'
 import starSVG from '../../assets/imgs/star.svg'
 import { useEffect, useState } from 'react'
@@ -8,6 +7,8 @@ import { useEffect, useState } from 'react'
 
 
 const Product = () => {
+
+    
 
     const [width, setwidth] = useState(0)
 
@@ -34,7 +35,7 @@ const Product = () => {
         <Header search={true} />
         <div className='product-id'>
             <div className='img-product'>
-                <img src={product1} alt="" />
+                {/* <img src={} alt="" /> */}
             </div>
                     <h1> Product NameProduct NameProduct Name </h1>
                 <p> Description of product </p>

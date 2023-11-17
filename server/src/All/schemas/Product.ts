@@ -5,6 +5,8 @@ interface ProductInterface extends Document {
     quantity: number
     description?: string
     price: number
+    img: string
+    desconto: number
 }
 
 const ProductSchema = new Schema({
@@ -12,6 +14,8 @@ const ProductSchema = new Schema({
     quantity: Number,
     description: String,
     price: Number,
+    img: String,
+    desconto: Number,
 },
 {
     timestamps: true

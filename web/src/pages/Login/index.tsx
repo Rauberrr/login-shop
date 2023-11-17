@@ -2,8 +2,35 @@ import Header from '../../components/Header'
 import google from '../../assets/imgs/google_icon-icons.com_62736 1.svg'
 import facebook from '../../assets/imgs/facebook_icon-icons.com_59205 1.svg'
 import './style.css'
+import { useEffect, useState } from 'react'
+import axiosClient from '../../api/api'
 
 const Login = () => {
+  const [email, setEmail] = useState('andre')
+  const [password, setPassword] = useState('andre123')
+
+  useEffect(() => {
+    async function login() {
+
+
+      
+      try {
+        const response = await axiosClient.post('/sign-in', {
+          email2: email,
+          password2: password
+        })
+
+        console.log(response.data)
+
+      } catch (error) {
+        console.error(error)
+      }
+    }
+    login()
+
+
+  },[])
+
   return (
     <>
       <Header search={false} />
