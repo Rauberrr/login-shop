@@ -3,6 +3,7 @@
 }
 .title {
     margin: 30px;
+    font-size: 40px;
 }
 
 .content {
@@ -20,15 +21,20 @@
     color: #F4ECEC;
 }
 
-.products .product {
+.product {
     min-width: 100px;
     word-wrap: break-word;
     background: #414041;
     margin: 20px;
     padding: 10px;
     min-height: 420px;
+    scale: 1;
+    transition: 200ms;
 }
 
+.product:hover {
+    scale: 1.05;
+}
 
 .product-button button {
     cursor: pointer;

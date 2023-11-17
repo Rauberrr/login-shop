@@ -1,10 +1,71 @@
-.content-login {
-    background: black;
+.login {
+    position: relative;
+    top: 50px;
+    background: rgba(0, 111, 255, 0.51);
+    filter: drop-shadow(0px 6px 15px rgba(0, 0, 0, 0.25));
+    width: 40%;
+    min-width: 420px;
+    max-width: 550px;
+    margin: auto;
+    padding: 2%;
 }
 
+.content-login a {
+    text-align: end;
+    color: #414041;
+}
+
+.login h1 {
+    text-align: center;
+    color: #F4ECEC;
+    font-size: 35px;
+}
 
 .form {
     display: flex;
     flex-direction: column;
-    width: 200px;
+    border-bottom: 1px solid #414041;
+    padding: 30px 0px;
+}
+
+input {
+    background: #F4ECEC;
+    outline: none;
+    border: 0;
+    border-radius: 5px;
+    margin: 10px 0px;
+    padding: 15px;
+    color: #414041;
+}
+
+.button {
+    padding-top: 10px;
+    text-align: end;
+}
+
+button {
+    width: 80px;
+    padding: 2px;
+    font-size: 15px;
+    cursor: pointer;
+    background: #F4ECEC;
+    border: 0;
+    color: #414041;
+    border-radius: 5px;
+    transition: 400ms;
+}
+
+button:hover {
+    background: #414041;
+    color: white;
+    
+}
+
+.entrar-com h2 {
+    font-size: 15px;
+    padding: 10px;
+}
+
+.entrar-com img {
+    padding: 10px;
 }

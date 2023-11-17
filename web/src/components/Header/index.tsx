@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import searchSVG from '../../assets/imgs/search.svg'
 import './style.css'
 
 interface SearchProps {
@@ -44,6 +45,7 @@ const Header: React.FC<SearchProps> = ({ search }) => {
             {search == true ?
             <div className="flex center search">
                 <input type="text" placeholder="Search "/>
+                <img src={searchSVG} alt="" />
             { windowWidthSearch  ?
                 <p> Filter </p>
                 : <></> }
