@@ -5,7 +5,6 @@ import axiosClient from '../../api/api'
 import { useEffect, useState } from 'react'
 
 const Home = () => {
-  const search = true
   const [products, setProducts] = useState([])
 
   interface productsProps {
@@ -34,7 +33,7 @@ const Home = () => {
 
   return (
     <>
-      <Header search={search} />
+      <Header search={true} />
       <h1 className="center-text title"> Compre Agora </h1>
       <div className='grid center products'>
         {products.map((product:productsProps) => (

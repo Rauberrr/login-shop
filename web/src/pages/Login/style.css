@@ -10,6 +10,11 @@
     padding: 2%;
 }
 
+.white {
+    color: #F4ECEC;
+    font-size: 17px;
+}
+
 .content-login a {
     text-align: end;
     color: #414041;

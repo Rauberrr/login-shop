@@ -7,8 +7,7 @@ interface SearchProps {
 }
 
 const Header: React.FC<SearchProps> = ({ search }) => {
-    console.log({search})
-
+    
     const [width, setwidth] = useState(window.innerWidth)
     const [menu, setMenu] = useState(false)
 

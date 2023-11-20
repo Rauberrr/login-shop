@@ -19,6 +19,6 @@ routes.get('/list-products', ProductController.list)
 routes.post('/create-product', ProductController.create)
 routes.post('/buy-product/:id', ProductController.buy)
 routes.delete('/delete-product/:id', ProductController.delete)
-routes.put('/update-product/:id', AuthMiddleware, ProductController.update)
+routes.put('/update-product/:id', ProductController.update)
 
 export default routes
