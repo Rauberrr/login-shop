@@ -1,8 +1,9 @@
 import { model, Schema } from 'mongoose'
 
 interface UserInterface extends Document {
-    email2?: string
-    password2?: string
+    name: string
+    email?: string
+    password?: string
     isAdmin: {
         type: boolean,
         default: false,
@@ -10,8 +11,9 @@ interface UserInterface extends Document {
 }
 
 const UserSchema = new Schema({
-    email2: String,
-    password2: String,
+    name: String,
+    email: String,
+    password: String,
     isAdmin: {
         type: Boolean,
         default: false,

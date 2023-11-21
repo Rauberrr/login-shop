@@ -3,23 +3,31 @@ import config from '../../config'
 import User from '../schemas/User'
 
 export default class AuthService {
-    public async signIn (email2: string, password2: string): Promise<{ user, token }> {
-        const UserValidade = await User.findOne({ email2: email2, password2: password2 })
-        
+
+    public async signIn(email: string, password: string): Promise<{ user, token }> {
+
+        interface tokenProps {
+            token: string
+        }
+
+
+        const UserValidade = await User.findOne({ email: email, password: password })
+
         if (!UserValidade) {
             throw new Error('Credenciais Invalidas')
         }
-        
+
         try {
-            
-            const token = jwt.sign({ email2: UserValidade.email2, id: UserValidade._id, isAdmin: UserValidade.isAdmin}, config.auth.secret, {
+
+            const token: tokenProps = jwt.sign({ email: UserValidade.email, id: UserValidade._id, isAdmin: UserValidade.isAdmin }, config.auth.secret, {
                 expiresIn: config.auth.ExpiresIn
             })
 
             return {
                 user: {
                     id: UserValidade._id,
-                    email2,
+                    name: UserValidade.name,
+                    email,
                     isAdmin: UserValidade.isAdmin
                 },
                 token
@@ -31,7 +39,7 @@ export default class AuthService {
         }
     }
 
-    public async tokenValidate (token: string): Promise<void> {
+    public async tokenValidate(token: string): Promise<void> {
         try {
             const decodedToken = jwt.verify(token, config.auth.secret)
             // const userId = decodedToken.id

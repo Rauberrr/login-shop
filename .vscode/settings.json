@@ -1,0 +1,13 @@
+[
+    {
+        "editor.formatOnSave": true,
+        "editor.formatOnPaste": true,
+        "editor.codeActionsOnSave": {
+            "source.fixAll": true,
+            "source.organizeImports": true
+        },
+        "editor.fontSize": 20,
+        "editor.fontFamily": "Victor Mono",
+        "editor.fontLigatures": true,
+    }
+]

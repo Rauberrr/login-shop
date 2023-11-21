@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react'
 
 const Home = () => {
   const [products, setProducts] = useState([])
+  const isAdmin = localStorage.getItem('isAdmin')
 
   interface productsProps {
     _id: string
@@ -34,6 +35,7 @@ const Home = () => {
   return (
     <>
       <Header search={true} />
+      { isAdmin && <p> Voce e admin do Site {isAdmin} </p> }
       <h1 className="center-text title"> Compre Agora </h1>
       <div className='grid center products'>
         {products.map((product:productsProps) => (
