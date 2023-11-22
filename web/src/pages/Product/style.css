@@ -59,6 +59,27 @@ select {
     justify-content: space-evenly;
 }
 
+/* editing */
+
+
+.editing input {
+    background-color: transparent;
+    box-shadow: 1px 1px rgb(68, 66, 66);
+    opacity: 0.4;
+    width: 85%;
+}
+
+.editing .button-editing {
+    width: 15%;
+    background: white;
+    color: black;
+}
+
+.editing .button-editing:hover {
+    background: rgb(230, 14, 176);
+    color: white;
+}
+
 @media screen and (max-width: 768px) {
     .product-id {
         width: 90%;
@@ -66,7 +87,9 @@ select {
 }
 
 @media screen and (max-width: 585px) {
-    .black, .blue {
+
+    .black,
+    .blue {
         width: 110px;
     }
 }

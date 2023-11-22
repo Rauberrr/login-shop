@@ -10,10 +10,10 @@ class UserController {
     }
 
     public async create(req: Request, res: Response): Promise<Response> {
-        const { email2, password2 } = req.body
+        const { email, password } = req.body
 
         try {
-            console.log(email2, password2)
+            console.log(email, password)
             const user = await User.create(req.body)
 
             return res.status(200).json({ msg: 'create user sucesfully', user })

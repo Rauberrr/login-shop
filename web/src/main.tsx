@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import Login from './pages/Login/index.tsx'
+import Cadastro from './pages/Cadastro/index.tsx'
 import Error from './pages/Error/index.tsx'
 import Home from './pages/Home/index.tsx'
-import Cadastro from './pages/Cadastro/index.tsx'
+import Login from './pages/Login/index.tsx'
 import Product from './pages/Product/index.tsx'
 
 const routes = createBrowserRouter([
@@ -28,7 +28,7 @@ const routes = createBrowserRouter([
         element: <Cadastro />
       },
       {
-        path: '/product',
+        path: `/products/:id`,
         element: <Product />
       }
     ]

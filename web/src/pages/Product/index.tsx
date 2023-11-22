@@ -1,16 +1,19 @@
-import './style.css'
-import Header from '../../components/Header'
+import { useEffect, useState } from 'react'
 import cart from '../../assets/imgs/cart.svg'
 import starSVG from '../../assets/imgs/star.svg'
-import { useEffect, useState } from 'react'
+import Header from '../../components/Header'
+import './style.css'
 
 
 
 const Product = () => {
 
-    
+    const isAdmin = localStorage.getItem('isAdmin')
 
     const [width, setwidth] = useState(0)
+    const [h1, setH1] = useState('false')
+    const [paragrafo, setParagrafo] = useState('false')
+
 
 
     useEffect(() => {
@@ -25,36 +28,52 @@ const Product = () => {
             window.removeEventListener('resize', handleWidth)
         }
 
-    },[])
+    }, [])
+
+    const buttons = width > 500
 
 
-    const buttons = width>500
 
-  return (
-    <>
-        <Header search={true} />
-        <div className='product-id'>
-            <div className='img-product'>
-                {/* <img src={} alt="" /> */}
-            </div>
-                    <h1> Product NameProduct NameProduct Name </h1>
-                <p> Description of product </p>
+
+    return (
+        <>
+            <Header search={true} />
+            <div className='product-id'>
+                <div className='img-product'>
+                    {/* <img src={} alt="" /> */}
+                </div>
+                {isAdmin ? <div>
+                    <h1 onDoubleClick={() => setH1("true")}>
+                        {h1 == "true" ? <div className='flex editing'>
+                            <input type='name' value={h1} onChange={(e) => setH1(e.target.value)} placeholder='Title' />
+                            <button className='button-editing'> Confirm Edit </button>
+                        </div>
+                            :
+                            <h1> Product NameProduct NameProduct Nameee </h1>}
+                    </h1>
+                    <p onDoubleClick={() => setParagrafo("true")}>
+                        {paragrafo == "true" ? <div className='flex editing'>
+                            <input type='name' value={paragrafo} onChange={(e) => setParagrafo(e.target.value)} placeholder='Description' />
+                            <button className='button-editing'> Confirm Edit </button>
+                        </div> : <p> Description of product </p>}
+                    </p>
+                </div> : <></>}
                 <div className='flex center buy space'>
                     <div className='flex center'>
-                        <h1> <span className="green"> R$300.00 </span></h1>
+                        <h1> <span className="green"> R$300.00 </span> </h1>
                         <h2> <span className="red"> 90% off </span> </h2>
                     </div>
-                    {buttons ? 
-                    <div className='flex'>
-                        <button className='flex center black'> Add Cart <img src={cart} alt="" /> </button>
-                        <button className='blue'> Buy Now </button>
-                    </div>
-                    : <></>}
+                    {buttons ?
+                        <div className='flex'>
+                            <button className='flex center black'> Add Cart <img src={cart} alt="" /> </button>
+                            <button className='blue'> Buy Now </button>
+                        </div>
+                        : <></>}
                 </div>
-                {buttons ==false ? <div className='flex'>
-                        <button className='flex center black'> Add Cart <img src={cart} alt="" /> </button>
-                        <button className='blue'> Buy Now </button>
-                    </div> : <></>}
+                {buttons == false ? <div className='flex'>
+                    <button className='flex center black'> Add Cart <img src={cart} alt="" /> </button>
+                    <button className='blue'> Buy Now </button>
+                </div> : <></>}
                 <select name="" id="">
                     <option value="">Quantity 1</option>
                     <option value="">Quantity 2</option>
@@ -75,8 +94,8 @@ const Product = () => {
                     <img src={starSVG} alt="" />
                     <p>(1)</p>
                 </div>
-        </div>
-    </>
+            </div>
+        </>
     )
 }
 

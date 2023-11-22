@@ -1,4 +1,4 @@
-import { GoogleAuthProvider, User, signInWithPopup } from 'firebase/auth'
+import { FacebookAuthProvider, GoogleAuthProvider, User, signInWithPopup } from 'firebase/auth'
 import { useState } from 'react'
 import axiosClient from '../../api/api'
 import facebook from '../../assets/imgs/facebook_icon-icons.com_59205 1.svg'
@@ -14,6 +14,7 @@ const Login = () => {
   const [error, setError] = useState('')
   const [sucess, setSucess] = useState('')
   const [userGoogle, setUserGoogle] = useState<User>({} as User)
+  const [userFacebook, setUserFacebook] = useState<User>({} as User)
   const [user, setUser] = useState<responseProps>({} as responseProps)
 
   interface responseProps {
@@ -32,6 +33,18 @@ const Login = () => {
     await signInWithPopup(auth, provider)
       .then((res) => {
         setUserGoogle(res.user)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+
+  const handleFacebook = async () => {
+    const provider = new FacebookAuthProvider()
+
+    await signInWithPopup(auth, provider)
+      .then((res) => {
+        setUserFacebook(res.user)
       })
       .catch((error) => {
         console.log(error)
@@ -74,6 +87,9 @@ const Login = () => {
         {userGoogle.photoURL && <img src={userGoogle.photoURL} alt="" />}
         {userGoogle.email && <p> {userGoogle.email} </p>}
         {userGoogle.displayName && <p> {userGoogle.displayName} </p>}
+        {userFacebook.photoURL && <img src={userFacebook.photoURL} alt="" />}
+        {userFacebook.email && <p> {userFacebook.email} </p>}
+        {userFacebook.displayName && <p> {userFacebook.displayName} </p>}
       </div>
       <div className='login'>
         <h1> Login </h1>
@@ -94,7 +110,7 @@ const Login = () => {
             <h2> Entrar com </h2>
             <div className='flex'>
               <img onClick={handleGoogle} src={google} alt="google" />
-              <img src={facebook} alt="facebook" />
+              <img onClick={handleFacebook} src={facebook} alt="facebook" />
             </div>
           </div>
           {error ? <h2 className='white'> {error} </h2> : <></>}
