@@ -28,7 +28,7 @@ const routes = createBrowserRouter([
         element: <Cadastro />
       },
       {
-        path: `/products/:id`,
+        path: '/products/:id',
         element: <Product />
       }
     ]

@@ -10,10 +10,11 @@ const Home = () => {
   const [products, setProducts] = useState([])
 
   interface productsProps {
-    _id: string
+    _id: string,
     img: string,
     price: number,
     name: string,
+    description: string,
     quantity: number,
     desconto: number,
   }
@@ -83,3 +84,4 @@ const Home = () => {
 }
 
 export default Home
+
