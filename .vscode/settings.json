@@ -6,7 +6,7 @@
             "source.fixAll": true,
             "source.organizeImports": true
         },
-        "editor.fontSize": 20,
+        "editor.fontSize": 25,
         "editor.fontFamily": "Victor Mono",
         "editor.fontLigatures": true,
     }

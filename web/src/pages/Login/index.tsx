@@ -3,7 +3,6 @@ import { useState } from 'react'
 import axiosClient from '../../api/api'
 import facebook from '../../assets/imgs/facebook_icon-icons.com_59205 1.svg'
 import google from '../../assets/imgs/google_icon-icons.com_62736 1.svg'
-import Header from '../../components/Header'
 import { auth } from '../../services/firebase'
 import './style.css'
 
@@ -55,11 +54,16 @@ const Login = () => {
   const handleSubmit = async (e: React.MouseEvent) => {
     e.preventDefault()
 
+    console.log(localStorage.getItem('token'))
+    console.log(localStorage.getItem('isAdmin'))
+
     try {
       const response = await axiosClient.post<responseProps>('/sign-in', {
         email: email,
         password: password
       })
+
+
 
       console.log(response.data.token)
       setError('')
@@ -67,9 +71,10 @@ const Login = () => {
       console.log('user normal: ' + user)
       localStorage.setItem('token', response.data.token)
       localStorage.setItem('isAdmin', response.data.user.isAdmin)
-      console.log(localStorage.getItem('isAdmin'))
       setSucess('Usuario logado com sucesso! ')
-      window.location.href = '/'
+      console.log(localStorage.getItem('token'))
+      console.log(localStorage.getItem('isAdmin'))
+      // window.location.href = '/'
     } catch (error) {
       console.error(error)
       setError('Erro ao fazer login, tente novamente! ')
@@ -80,9 +85,10 @@ const Login = () => {
   const stringValue: string = email ? email.toString() : '';
 
 
+
   return (
     <>
-      <Header search={false} />
+      {/* <Header search={false} /> */}
       <div>
         {userGoogle.photoURL && <img src={userGoogle.photoURL} alt="" />}
         {userGoogle.email && <p> {userGoogle.email} </p>}

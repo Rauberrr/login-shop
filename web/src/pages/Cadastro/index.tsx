@@ -2,7 +2,6 @@ import { useState } from 'react'
 import axiosClient from '../../api/api'
 import facebook from '../../assets/imgs/facebook_icon-icons.com_59205 1.svg'
 import google from '../../assets/imgs/google_icon-icons.com_62736 1.svg'
-import Header from '../../components/Header'
 import './style.css'
 
 const Cadastro = () => {
@@ -37,7 +36,7 @@ const Cadastro = () => {
 
   return (
     <>
-      <Header search={false} />
+      {/* <Header search={false} /> */}
       <div className='login'>
         <h1> SignUp </h1>
         <div className='content-login'>

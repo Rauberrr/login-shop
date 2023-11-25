@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom'
 import axiosClient from '../../api/api'
 import cart from '../../assets/imgs/cart.svg'
 import starSVG from '../../assets/imgs/star.svg'
-import Header from '../../components/Header'
 import './style.css'
 
 interface productsProps {
@@ -44,7 +43,6 @@ const Product = () => {
 
         products()
         async function products() {
-
             try {
                 const response = await axiosClient.get('/list-products')
                 const productFind: productsProps = await response.data.find((product: productsProps) => product._id === id)
@@ -54,6 +52,7 @@ const Product = () => {
                 setInputP(productFind.description || '')
                 setInputPrice(productFind.price ? String(productFind.price) : '')
 
+                console.log(isAdmin)
 
             } catch (error) {
                 console.error(error)
@@ -81,6 +80,7 @@ const Product = () => {
                 name: inputH1,
                 description: inputP,
                 price: inputPrice,
+                desconto: inputDesconto,
             })
 
             console.log(response)
@@ -95,12 +95,12 @@ const Product = () => {
 
     return (
         <>
-            <Header search={true} />
+            {/* <Header search={true} inputSearch='/> */}
             <div className='product-id'>
                 <div className='img-product'>
                     <img src={product.img} alt="" />
                 </div>
-                {isAdmin ? <div>
+                {isAdmin == 'true' ?
                     <div onDoubleClick={() => setH1(true)}>
                         {h1 == true ? <div className='flex editing'>
                             <input type='name' value={inputH1} onChange={(e) => setInputH1(e.target.value)} placeholder='Title' />
@@ -113,6 +113,8 @@ const Product = () => {
                                 }
                             </div>}
                     </div>
+                    : <h1> {product.name} </h1>}
+                {isAdmin == 'true' ?
                     <div onDoubleClick={() => setParagrafo(true)}>
                         {paragrafo == true ? <div className='flex editing'>
                             <input type='name' value={inputP} onChange={(e) => setInputP(e.target.value)} placeholder='Description' />
@@ -125,24 +127,40 @@ const Product = () => {
                                 }
                             </div>}
                     </div>
-                </div> : <></>}
+                    : <p> {product.description} </p>}
                 <div className='flex center buy space'>
                     <div className='flex center'>
-                        <div onDoubleClick={() => setPrice(true)}>
-                            {price ? <div className='flex editing-price'>
-                                <input type="number" value={inputPrice} onChange={(e) => setInputPrice(e.target.value)} placeholder='Price' />
-                                <button className='button-editing' onClick={() => setPrice(false)}> Confirm Edit </button>
-                            </div>
-                                : <div>
-                                    {inputPrice ? <h1> <span className="green"> R${inputPrice} </span> </h1>
-                                        :
-                                        <h1> <span className="green"> R${product.price} </span> </h1>
-                                    }
+                        {isAdmin == 'true' ?
+                            <div onDoubleClick={() => setPrice(true)}>
+                                {price ? <div className='flex editing-price'>
+                                    <input type="number" value={inputPrice} onChange={(e) => setInputPrice(e.target.value)} placeholder='Price' />
+                                    <button className='button-editing' onClick={() => setPrice(false)}> Confirm Edit </button>
                                 </div>
-                            }
+                                    : <div>
+                                        {inputPrice ? <h1> <span className="green"> R${inputPrice} </span> </h1>
+                                            :
+                                            <h1> <span className="green"> R${product.price} </span> </h1>
+                                        }
+                                    </div>
+                                }
 
-                        </div>
-                        {product.desconto && <h2> <span className="red"> {product.desconto}% off </span> </h2>}
+                            </div>
+                            : <h1> <span className="green"> R${product.price} </span> </h1>}
+                        {isAdmin == 'true' ?
+                            <div onDoubleClick={() => setDesconto(true)}>
+                                {desconto == true ? <div className='flex editing'>
+                                    <input type='number' value={inputDesconto} onChange={(e) => setInputDesconto(e.target.value)} placeholder='Desconto' />
+                                    <button className='button-editing' onClick={() => setDesconto(false)} > Confirm Edit </button>
+                                </div>
+                                    :
+                                    <div>
+                                        {inputDesconto ? <h2> <span className="red"> {inputDesconto}% off </span> </h2> :
+                                            <h2> <span className="red"> {product.desconto}% off </span> </h2>
+                                        }
+                                    </div>}
+                            </div>
+                            : <h2> <span className="red"> {product.desconto}% off </span> </h2>}
+
                     </div>
                     {buttons &&
                         <div className='flex'>
@@ -176,9 +194,11 @@ const Product = () => {
                         <img src={starSVG} alt="" />
                         <p>(1)</p>
                     </div>
-                    <div>
-                        <button className='blue' onClick={() => handleUpdate(product._id)}> Finish Editing </button>
-                    </div>
+                    {isAdmin == 'true' &&
+                        <div>
+                            <button className='submit-editing' onClick={() => handleUpdate(product._id)}> Finish Editing </button>
+                        </div>
+                    }
                 </div>
             </div>
         </>
