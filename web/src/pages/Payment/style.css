@@ -1,0 +1,13 @@
+.buttons-container {
+    width: 400px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -30%);
+}
+
+.payment img {
+    width: 150px;
+    aspect-ratio: 3/2;
+    object-fit: contain;
+}

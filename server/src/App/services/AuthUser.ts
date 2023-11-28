@@ -1,14 +1,19 @@
-import jwt from 'jsonwebtoken'
-import config from '../../config'
-import User from '../schemas/User'
+import jwt from 'jsonwebtoken';
+import config from '../../config';
+import User from '../schemas/User';
+
 
 export default class AuthService {
+
+
 
     public async signIn(email: string, password: string): Promise<{ user, token }> {
 
         interface tokenProps {
             token: string
         }
+
+
 
 
         const UserValidade = await User.findOne({ email: email, password: password })
@@ -40,6 +45,8 @@ export default class AuthService {
     }
 
     public async tokenValidate(token: string): Promise<void> {
+
+
         try {
             const decodedToken = jwt.verify(token, config.auth.secret)
             // const userId = decodedToken.id

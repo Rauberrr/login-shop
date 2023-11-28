@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axiosClient from '../../api/api'
+import plusSVG from '../../assets/imgs/plus.svg'
 import starSVG from '../../assets/imgs/star.svg'
 import Header from '../../components/Header'
 import './style.css'
@@ -11,6 +12,8 @@ const Home = () => {
   const [inputSearch, setInputSearch] = useState('');
 
   const isAdmin = localStorage.getItem('isAdmin')
+  const token = localStorage.getItem('token')
+  const name = localStorage.getItem('name')
 
   interface productsProps {
     _id: string,
@@ -40,11 +43,14 @@ const Home = () => {
   const productsFilter = inputSearch.length > 0 ? products.filter((product: productsProps) => product.name.toLowerCase().includes(inputSearch.toLowerCase())) : [];
 
 
-  console.log(inputSearch)
   const navigate = useNavigate()
 
   const handleRedirect = (id: String) => {
     navigate(`/products/${id}`)
+  }
+
+  const handleCreate = () => {
+    navigate('/create')
   }
 
 
@@ -52,6 +58,7 @@ const Home = () => {
     <>
       <Header search={true} setInputSearch={setInputSearch} inputSearch={inputSearch} />
       <h1 className="center-text title"> Compre Agora </h1>
+      {token && <p className='center-text'> Seja Bem Vindo, {name} </p>}
       {isAdmin == 'true' && <p className='center-text'> You is Admin</p>}
       {inputSearch.length > 0
         ?
@@ -64,6 +71,7 @@ const Home = () => {
               <div className='content'>
 
                 <h1> {product.name} </h1>
+                <p> {product.description} </p>
                 <div>
 
                 </div>
@@ -92,6 +100,12 @@ const Home = () => {
         </div>
         :
         <div className='grid center products'>
+          {isAdmin == 'true' &&
+            <div className='flex center product add'>
+              <img src={plusSVG} alt="Create" onClick={() => handleCreate()} />
+            </div>
+          }
+
           {products.map((product: productsProps) => (
             <div className='product' key={product._id}>
               <div className="center-text img">
@@ -100,6 +114,8 @@ const Home = () => {
               <div className='content'>
 
                 <h1> {product.name} </h1>
+                <p> {product.description} </p>
+
                 <div>
 
                 </div>

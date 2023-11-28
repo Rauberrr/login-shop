@@ -7,6 +7,7 @@ import Cadastro from './pages/Cadastro/index.tsx'
 import Error from './pages/Error/index.tsx'
 import Home from './pages/Home/index.tsx'
 import Login from './pages/Login/index.tsx'
+import Payment from './pages/Payment/index.tsx'
 import Product from './pages/Product/index.tsx'
 
 const routes = createBrowserRouter([
@@ -30,6 +31,10 @@ const routes = createBrowserRouter([
       {
         path: '/products/:id',
         element: <Product />
+      },
+      {
+        path: '/payment',
+        element: <Payment />
       }
     ]
   }

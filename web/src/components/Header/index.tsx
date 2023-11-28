@@ -1,12 +1,12 @@
-import { useEffect, useState } from 'react';
+import { SetStateAction, useEffect, useState } from 'react';
 import axiosClient from '../../api/api';
 import searchSVG from '../../assets/imgs/search.svg';
 import './style.css';
 
 interface SearchProps {
     search: boolean;
-    setInputSearch: React.Dispatch<React.SetStateAction<string>>;
-    inputSearch: string;
+    setInputSearch?: React.Dispatch<SetStateAction<string>>;
+    inputSearch?: string;
 }
 
 const Header: React.FC<SearchProps> = ({ search, setInputSearch, inputSearch }) => {
@@ -58,20 +58,8 @@ const Header: React.FC<SearchProps> = ({ search, setInputSearch, inputSearch }) 
     const handleLogout = () => {
         localStorage.removeItem('token')
         localStorage.removeItem('isAdmin')
+        localStorage.removeItem('name')
     }
-
-    interface productsProps {
-        _id: string,
-        img: string,
-        price: number,
-        name: string,
-        description: string,
-        quantity: number,
-        desconto: number,
-    }
-
-    const productsFilter = inputSearch.length > 0 ? data.filter((product: productsProps) => product.name.includes(inputSearch)) : []
-
 
     return (
         <div className="flex space header">
@@ -79,7 +67,7 @@ const Header: React.FC<SearchProps> = ({ search, setInputSearch, inputSearch }) 
                 <h1> LoginShop </h1>
                 {search == true ?
                     <div className="flex center search">
-                        <input type="text" value={inputSearch} onChange={(e) => setInputSearch(e.target.value)} placeholder="Search" />
+                        <input type="text" value={inputSearch} onChange={(e) => setInputSearch && setInputSearch(e.target.value)} placeholder="Search" />
                         <img src={searchSVG} alt="" />
                         {windowWidthSearch ?
                             <p> Filter </p>

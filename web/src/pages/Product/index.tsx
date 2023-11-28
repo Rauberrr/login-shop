@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import axiosClient from '../../api/api'
 import cart from '../../assets/imgs/cart.svg'
 import starSVG from '../../assets/imgs/star.svg'
+import Header from '../../components/Header'
 import './style.css'
 
 interface productsProps {
@@ -18,6 +19,7 @@ interface productsProps {
 const Product = () => {
 
     const isAdmin = localStorage.getItem('isAdmin')
+    const token = localStorage.getItem('token')
 
     const [width, setwidth] = useState(0)
 
@@ -35,7 +37,6 @@ const Product = () => {
 
     const [product, setProducts] = useState<productsProps>({} as productsProps)
     const { id } = useParams()
-
 
     const buttons = width > 500
 
@@ -93,9 +94,20 @@ const Product = () => {
         }
     }
 
+    const navigate = useNavigate()
+
+    const handlePayment = () => {
+        if (!token) {
+            navigate('/login')
+            return
+        }
+
+        navigate('/payment')
+    }
+
     return (
         <>
-            {/* <Header search={true} inputSearch='/> */}
+            <Header search={true} />
             <div className='product-id'>
                 <div className='img-product'>
                     <img src={product.img} alt="" />
@@ -165,13 +177,13 @@ const Product = () => {
                     {buttons &&
                         <div className='flex'>
                             <button className='flex center black'> Add Cart <img src={cart} alt="" /> </button>
-                            <button className='blue'> Buy Now </button>
+                            <button className='blue' onClick={() => handlePayment()}> Buy Now </button>
                         </div>
                     }
                 </div>
                 {!buttons && <div className='flex'>
                     <button className='flex center black'> Add Cart <img src={cart} alt="" /> </button>
-                    <button className='blue'> Buy Now </button>
+                    <button className='blue' onClick={() => handlePayment()}> Buy Now </button>
                 </div>}
                 <select name="" id="">
                     <option value="">Quantity 1</option>

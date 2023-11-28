@@ -1,8 +1,8 @@
-import { FacebookAuthProvider, GoogleAuthProvider, User, signInWithPopup } from 'firebase/auth'
+import { GoogleAuthProvider, User, signInWithPopup } from 'firebase/auth'
 import { useState } from 'react'
 import axiosClient from '../../api/api'
-import facebook from '../../assets/imgs/facebook_icon-icons.com_59205 1.svg'
 import google from '../../assets/imgs/google_icon-icons.com_62736 1.svg'
+import Header from '../../components/Header'
 import { auth } from '../../services/firebase'
 import './style.css'
 
@@ -10,11 +10,9 @@ import './style.css'
 const Login = () => {
   const [email, setEmail] = useState<String | null>(null)
   const [password, setPassword] = useState('')
-  const [error, setError] = useState('')
-  const [sucess, setSucess] = useState('')
   const [userGoogle, setUserGoogle] = useState<User>({} as User)
-  const [userFacebook, setUserFacebook] = useState<User>({} as User)
   const [user, setUser] = useState<responseProps>({} as responseProps)
+  const [error, setError] = useState('')
 
   interface responseProps {
     user: {
@@ -32,30 +30,19 @@ const Login = () => {
     await signInWithPopup(auth, provider)
       .then((res) => {
         setUserGoogle(res.user)
+        localStorage.setItem('token', res.user.uid)
       })
       .catch((error) => {
         console.log(error)
       })
   }
-
-  const handleFacebook = async () => {
-    const provider = new FacebookAuthProvider()
-
-    await signInWithPopup(auth, provider)
-      .then((res) => {
-        setUserFacebook(res.user)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-  }
-
 
   const handleSubmit = async (e: React.MouseEvent) => {
     e.preventDefault()
 
-    console.log(localStorage.getItem('token'))
-    console.log(localStorage.getItem('isAdmin'))
+    if (!email || !password) {
+      return setError('email ou password invalidos')
+    }
 
     try {
       const response = await axiosClient.post<responseProps>('/sign-in', {
@@ -66,19 +53,16 @@ const Login = () => {
 
 
       console.log(response.data.token)
-      setError('')
       setUser(response.data)
-      console.log('user normal: ' + user)
+      console.log('user normal: ' + user.user)
+      localStorage.setItem('name', response.data.user.name)
       localStorage.setItem('token', response.data.token)
       localStorage.setItem('isAdmin', response.data.user.isAdmin)
-      setSucess('Usuario logado com sucesso! ')
-      console.log(localStorage.getItem('token'))
-      console.log(localStorage.getItem('isAdmin'))
-      // window.location.href = '/'
+
+      window.location.href = '/'
     } catch (error) {
+      setError('email ou password invalidos')
       console.error(error)
-      setError('Erro ao fazer login, tente novamente! ')
-      setSucess('')
     }
   }
 
@@ -88,15 +72,15 @@ const Login = () => {
 
   return (
     <>
-      {/* <Header search={false} /> */}
-      <div>
+      <Header search={false} />
+      {/* <div>
         {userGoogle.photoURL && <img src={userGoogle.photoURL} alt="" />}
         {userGoogle.email && <p> {userGoogle.email} </p>}
         {userGoogle.displayName && <p> {userGoogle.displayName} </p>}
         {userFacebook.photoURL && <img src={userFacebook.photoURL} alt="" />}
         {userFacebook.email && <p> {userFacebook.email} </p>}
         {userFacebook.displayName && <p> {userFacebook.displayName} </p>}
-      </div>
+      </div> */}
       <div className='login'>
         <h1> Login </h1>
         <div className='center-text'>
@@ -106,6 +90,7 @@ const Login = () => {
           <div className="form">
             <input type="email" placeholder='Email' value={stringValue} onChange={(e) => setEmail(e.target.value)} required />
             <input type="password" placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} required />
+            {error && <p style={{ color: 'red' }}> {error} </p>}
             <a href="/update"> Forgot Password or email </a>
             <div className='button'>
               <button onClick={handleSubmit} > Login </button>
@@ -113,14 +98,11 @@ const Login = () => {
             </div>
           </div>
           <div className='entrar-com'>
-            <h2> Entrar com </h2>
+            <h2> Entrar com Google </h2>
             <div className='flex'>
               <img onClick={handleGoogle} src={google} alt="google" />
-              <img onClick={handleFacebook} src={facebook} alt="facebook" />
             </div>
           </div>
-          {error ? <h2 className='white'> {error} </h2> : <></>}
-          {sucess ? <h2 className='green'> {sucess} </h2> : <></>}
         </div>
 
       </div>

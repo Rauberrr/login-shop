@@ -34,6 +34,13 @@
     transition: 200ms;
 }
 
+.product.add {
+    background: #0000004f;
+    justify-content: center;
+    cursor: pointer;
+}
+
+
 .product:hover {
     scale: 1.05;
 }

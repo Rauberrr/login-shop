@@ -1,5 +1,5 @@
 import { type NextFunction, type Request, type Response } from 'express'
-import AuthService from '../All/services/AuthUser'
+import AuthService from '../App/services/AuthUser'
 
 export default async (req: Request, res: Response, next: NextFunction) => {
     const auth = req.headers.authorization
