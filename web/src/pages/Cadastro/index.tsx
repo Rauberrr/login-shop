@@ -11,7 +11,8 @@ const Cadastro = () => {
   const [confirmPassword, setConfirmPassword] = useState('')
   const [error, setError] = useState('')
 
-  const handleSingUp = async () => {
+  const handleSingUp = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
 
     if (!name || !email || !password || !confirmPassword) {
       return setError('Preencha os campos corretamente')
@@ -20,7 +21,7 @@ const Cadastro = () => {
     try {
 
       if (password != confirmPassword) {
-        throw new Error('passwords !=')
+        return setError('As passwords nao conferem')
       }
 
       const response = await axiosClient.post('/create-user', {
@@ -44,15 +45,18 @@ const Cadastro = () => {
         <h1> SignUp </h1>
         <div className='content-login'>
           <div className="form">
-            <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder='Name' required />
-            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder='Email' required />
-            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder='Password' required />
-            <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder='Confirm Password' required />
-            {error && <p style={{ color: 'red' }}> {error} </p>}
-            <div className='button'>
-              <a href="/login"> Login </a>
-              <button onClick={handleSingUp}> SignUp </button>
-            </div>
+            <form onSubmit={handleSingUp}>
+
+              <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder='Name' required />
+              <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder='Email' required />
+              <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder='Password' required />
+              <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder='Confirm Password' required />
+              {error && <p style={{ color: 'red' }}> {error} </p>}
+              <div className='button'>
+                <a href="/login"> Login </a>
+                <button type='submit'> SignUp </button>
+              </div>
+            </form>
           </div>
 
         </div>

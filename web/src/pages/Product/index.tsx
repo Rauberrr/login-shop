@@ -31,8 +31,8 @@ const Product = () => {
 
     const [inputP, setInputP] = useState('')
     const [inputH1, setInputH1] = useState('')
-    const [inputPrice, setInputPrice] = useState('')
-    const [inputDesconto, setInputDesconto] = useState('')
+    const [inputPrice, setInputPrice] = useState<number>(0)
+    const [inputDesconto, setInputDesconto] = useState<number>(0)
 
 
     const [product, setProducts] = useState<productsProps>({} as productsProps)

@@ -23,8 +23,7 @@
 }
 
 .product {
-    min-width: 100px;
-    max-width: 400px;
+    min-width: 350px;
     word-wrap: break-word;
     background: #414041;
     margin: 20px;
@@ -35,6 +34,7 @@
 }
 
 .product.add {
+    /* min-width: ; */
     background: #0000004f;
     justify-content: center;
     cursor: pointer;
@@ -60,8 +60,9 @@
 .img img {
     width: 100%;
     max-height: 350px;
-    object-fit: cover;
+    object-fit: contain;
     aspect-ratio: 3/2;
+    /* mix-blend-mode: color-burn; */
 }
 
 .stars img {
@@ -76,13 +77,29 @@
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-    /* grid-template-columns: 1fr 1fr 1fr; */
+    justify-items: center;
 }
 
 .green {
     font-size: 15px;
     margin-left: 5px;
     color: green;
+}
+
+.input-mini {
+    padding: 0px 20px;
+    max-height: 300px;
+    overflow: auto;
+    margin: 20px 0px;
+}
+
+.product-button img {
+    width: 20px;
+}
+
+.button1 {
+    cursor: pointer;
+    margin: 0px 20px 0px 0px;
 }
 
 
